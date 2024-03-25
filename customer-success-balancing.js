@@ -47,7 +47,7 @@ function findBestCS(csMap) {
     if (data.customers > maxCustomers) {
       maxCustomers = data.customers;
       bestCSId = csId;
-      // Draw case return first found
+      // if Draw case return first found
     } else if (data.customers === maxCustomers) {
       bestCSId = 0;
     }
@@ -166,4 +166,60 @@ test("Scenario 8", () => {
   const customers = mapEntities([90, 70, 20, 40, 60, 10]);
   const csAway = [2, 4];
   expect(customerSuccessBalancing(css, customers, csAway)).toEqual(1);
+});
+
+test("Scenario 9: All CS are away", () => {
+  const css = [
+    { id: 1, score: 60 },
+    { id: 2, score: 20 },
+    { id: 3, score: 95 },
+    { id: 4, score: 75 },
+  ];
+  const customers = [
+    { id: 1, score: 90 },
+    { id: 2, score: 20 },
+    { id: 3, score: 70 },
+    { id: 4, score: 40 },
+    { id: 5, score: 60 },
+    { id: 6, score: 10 },
+  ];
+  const csAway = [1, 2, 3, 4];
+
+  expect(customerSuccessBalancing(css, customers, csAway)).toEqual(0);
+});
+
+test("Scenario 10: 1 CS and 1 customer", () => {
+  const css = [{ id: 1, score: 60 }];
+  const customers = [{ id: 1, score: 90 }];
+  const csAway = []; 
+
+  expect(customerSuccessBalancing(css, customers, csAway)).toEqual(1);
+});
+
+test("Scenario 11: No customers", () => {
+  const css = [
+    { id: 1, score: 60 },
+    { id: 2, score: 20 },
+    { id: 3, score: 95 },
+    { id: 4, score: 75 },
+  ];
+  const customers = [];
+  const csAway = [];
+
+  expect(customerSuccessBalancing(css, customers, csAway)).toEqual(0); 
+});
+
+test("Scenario 12: No CustomerSuccess", () => {
+  const css = [];
+  const customers = [
+    { id: 1, score: 90 },
+    { id: 2, score: 20 },
+    { id: 3, score: 70 },
+    { id: 4, score: 40 },
+    { id: 5, score: 60 },
+    { id: 6, score: 10 },
+  ];
+  const csAway = [];
+
+  expect(customerSuccessBalancing(css, customers, csAway)).toEqual(0); 
 });
